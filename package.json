@@ -1,6 +1,6 @@
 {
   "name": "meu-primeiro-app",
-  "homepage": "https://esthervbac.github.io/react-app",
+  "homepage": "https://danielleizawa.github.io/react-app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,9 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "homepage": "https://danielleizawa.github.io/react-app/",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "gh-pages -b gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
