@@ -79,19 +79,25 @@ const valorInput = (event) => {
 
 // Renderizando na tela as informações recebidas da API 
     return (
-        <>
-            {infos.map(item => (
-                <div className="container" key={item.index}>
-                    <div className="content">
-                        <img className="thumbnail" src={item.img} alt="Foto do usuário" />
-                        <div className="infos">   
-                            <p>Nome do Usuário: {item.name}</p>
-                            <p>ID: {item.id} - Username: {item.username}</p>
+        <>  
+            <header >
+                <h1 className="titleList">Lista de Usuários</h1>
+            </header>
+
+            <section className='studentList'>
+                {infos.map(item => (
+                    <div className="container" key={item.index}>
+                        <div className="content">
+                            <img className="thumbnail" src={item.img} alt="Foto do usuário" />
+                            <div className="infos">
+                                <p>Nome do Usuário: {item.name}</p>
+                                <p>ID: {item.id} - Username: {item.username}</p>
+                            </div>
+                            <button className="botao-pagar" onClick={()=>{abrirModalPagar(item.name)}}>Pagar</button>
                         </div>
-                        <button className="botao-pagar" onClick={()=>{abrirModalPagar(item.name)}}>Pagar</button>
                     </div>
-                </div>
-            ))}
+                ))}
+            </section>
 
             {/*--------------------------------Abrir Modal de pagamento----------------------------------*/}
             <div className="abrirModal" style={{display: abrirPagamento}}>
@@ -113,6 +119,7 @@ const valorInput = (event) => {
                 <p>O Pagamento <b>{abrirNaoRecebeu}</b> foi concluído com sucesso</p>
                 <button onClick={()=>{fecharModal()}}>Fechar</button>
             </div>
+            <div className="footer"></div>
         </>
     )
 }
