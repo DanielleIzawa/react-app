@@ -36,9 +36,10 @@ header::after {
 .studentList{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 5px;
+    column-gap: 2px;
     padding: 0.5px;
-    max-width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 .container {
@@ -102,6 +103,7 @@ button {
     justify-content: space-between;
     align-items: center;
     border: 1px solid black;
+    border-radius: 10px;
 }
 
 .texto-cabecalho-modal {
@@ -150,6 +152,8 @@ button {
     color: red;
     font-weight: bold;
     margin-top: 2%;
+    font-size: 13px;
+    
 }
 
 .footer{
@@ -207,7 +211,7 @@ button {
     }
 }
 
-@media screen and (max-width: 420px) and (min-width: 280px){
+@media screen and (max-width: 480px) and (min-width: 280px){
     header{
         height: 50px;
         margin-bottom: 10px;
