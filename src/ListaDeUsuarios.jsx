@@ -1,7 +1,8 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NumberFormat from 'react-number-format';
+
 import './listadeusuarios.css';
-import axios from 'axios';
 
 //Pegando as informações da API pelo GET
 const ListaDeUsuarios = () => {
@@ -9,7 +10,9 @@ const ListaDeUsuarios = () => {
     useEffect(() => {
         axios.get('https://www.mocky.io/v2/5d531c4f2e0000620081ddce', {
             method: 'GET',
-        }).then((resposta) => {setInfos(resposta.data)})
+        }).then((resposta) => {setInfos(resposta.data)
+        } )
+        
     }, [])
 
 // Mock com lista de cartões para teste
@@ -34,7 +37,7 @@ const escolhaDoCartao = (event) => {
 }
 
 // Ações dos modals
-const [abrirPagamento, setAbrirPagamento] = useState("none"); // Para abrir modal de pagamento
+const [abrirPagamento, setAbrirPagamento] = useState("none"); // Para abrir modal de Pagamento para
 const [pegarUsuario, setPegarUsuario] = useState(""); // Para pegar o nome do usuário
 const [abrirPagou, setAbrirPagou] = useState("none"); // Para abrir modal com recibo de pagamento
 const [abrirNaoRecebeu, setAbrirNaoRecebeu] = useState(""); // Para msg de erro de pagamento
@@ -93,7 +96,7 @@ const valorInput = (event) => {
                                 <p>Nome do Usuário: {item.name}</p>
                                 <p>ID: {item.id} - Username: {item.username}</p>
                             </div>
-                            <button className="botao-pagar" onClick={()=>{abrirModalPagar(item.name)}}>Pagar</button>
+                            <button data-testid="botao-pagar" className="botao-pagar" onClick={()=>{abrirModalPagar(item.name)}}>Pagar</button>
                         </div>
                     </div>
                 ))}
@@ -117,7 +120,7 @@ const valorInput = (event) => {
             <div className="abrirModal" style={{display: abrirPagou}}>
                 <p className="texto-cabecalho-modal">Recibo de pagamento</p>
                 <p>O Pagamento <b>{abrirNaoRecebeu}</b> foi concluído com sucesso</p>
-                <button onClick={()=>{fecharModal()}}>Fechar</button>
+                <button OnClick={()=>{fecharModal()}} >Fechar</button>
             </div>
             <div className="footer"></div>
         </>
