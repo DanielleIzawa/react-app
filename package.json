@@ -23,7 +23,7 @@
     "test:coverage": "react-scripts test --coverage --env=jest-environment-jsdom-sixteen --watchAll=false",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b gh-pages-branch -d build"
+    "deploy": "gh-pages -b gh-pages-branchMaster -d build"
   },
   "eslintConfig": {
     "extends": [
