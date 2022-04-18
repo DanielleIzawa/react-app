@@ -7,13 +7,17 @@ import './listadeusuarios.css';
 //Pegando as informações da API pelo GET
 const ListaDeUsuarios = () => {
     const [infos, setInfos] = useState([])
+    const [infosSearch, setInfosSearch] = useState([]); 
     useEffect(() => {
         axios.get('https://www.mocky.io/v2/5d531c4f2e0000620081ddce', {
             method: 'GET',
-        }).then((resposta) => {setInfos(resposta.data)
+        }).then((resposta) => {
+            setInfos(resposta.data)
+            setInfosSearch(resposta.data);
         } )
         
     }, [])
+
 
 // Mock com lista de cartões para teste
 const cards = [
@@ -30,6 +34,16 @@ const cards = [
       expiry_date: '01/20',
     },
 ];
+
+//filtro de busca de usuarios
+const filter = (event) => {
+    const value = event.target.value;
+    const _new = infosSearch.filter(({ id, name, username }) =>
+      Object.values({ id, name, username }).join().includes(value)
+    );
+    setInfos(_new);
+  };
+
 
 // Função para pegar a escolha do cartão do input select
 const escolhaDoCartao = (event) => {
@@ -70,8 +84,8 @@ const abrirModalPagou = () => {
 }
 
 // Função para fechar o modal do recibo de pagamento
-const fecharModal = () => {
-    setAbrirPagou("none");
+const fecharModal = (isPagamento) => {
+    isPagamento ? setAbrirPagamento("none") : setAbrirPagou("none")
 }
 
 // Função para validar campo de valor para pagamento do usuário
@@ -80,21 +94,28 @@ const valorInput = (event) => {
     setValidarCampo("none");
 }
 
+
 // Renderizando na tela as informações recebidas da API 
     return (
         <>  
-            <header >
+            <header>
                 <h1 className="titleList">Lista de Usuários</h1>
+                <div id="divBusca">
+                    <input 
+                    type="text" 
+                    id="txtBusca" 
+                    onChange={filter} 
+                    placeholder="Pesquisar usuário..."/>
+                </div>
             </header>
-
             <section className='studentList'>
                 {infos.map(item => (
                     <div className="container" key={item.index}>
                         <div className="content">
                             <img className="thumbnail" src={item.img} alt="Foto do usuário" />
                             <div className="infos">
-                                <p>Nome do Usuário: {item.name}</p>
-                                <p>ID: {item.id} - Username: {item.username}</p>
+                                <p>{item.name}</p>
+                                <p>{/* {item.id} */} {item.username}</p>
                             </div>
                             <button data-testid="botao-pagar" className="botao-pagar" onClick={()=>{abrirModalPagar(item.name)}}>Pagar</button>
                         </div>
@@ -113,14 +134,17 @@ const valorInput = (event) => {
                 <option value="1">Cartão com final {cards[0].card_number.substr(-4)}</option>
                 <option value="2">Cartão com final {cards[1].card_number.substr(-4)}</option>
                 </select>
-                <button onClick={()=>{abrirModalPagou ()}}>Pagar</button>
+                <div className='buttonMaster'>
+                    <button onClick={()=>{abrirModalPagou ()}}>Pagar</button>
+                    <button className="cancel" onClick={() => fecharModal(true) }  >Cancelar</button>
+                </div>
             </div>  
 
             {/*------------------------------Abrir Modal de recibo de pagamento--------------------------------*/}
             <div className="abrirModal" style={{display: abrirPagou}}>
                 <p className="texto-cabecalho-modal">Recibo de pagamento</p>
                 <p>O Pagamento <b>{abrirNaoRecebeu}</b> foi concluído com sucesso</p>
-                <button OnClick={()=>{fecharModal()}} >Fechar</button>
+                <button onClick={() => fecharModal(false) }  >Fechar</button>
             </div>
             <div className="footer"></div>
         </>
